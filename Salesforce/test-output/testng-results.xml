@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="2" total="3" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="43058" started-at="2021-10-13T17:40:14 PDT" finished-at="2021-10-13T17:40:57 PDT">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="43058" started-at="2021-10-13T17:40:14 PDT" finished-at="2021-10-13T17:40:57 PDT">
+      <class name="com.training.test.createAccount.CreateAccountTest">
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.training.test.createAccount.CreateAccountTest@631330c]" name="beforeTest" is-config="true" duration-ms="4652" started-at="2021-10-13T17:40:14 PDT" finished-at="2021-10-13T17:40:18 PDT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="TC12_Editview()[pri:0, instance:com.training.test.createAccount.CreateAccountTest@631330c]" name="TC12_Editview" duration-ms="38043" started-at="2021-10-13T17:40:18 PDT" description="Edit view" finished-at="2021-10-13T17:40:56 PDT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TC12_Editview -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.training.test.createAccount.CreateAccountTest@631330c]" name="teardown" is-config="true" duration-ms="299" started-at="2021-10-13T17:40:56 PDT" finished-at="2021-10-13T17:40:57 PDT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- com.training.test.createAccount.CreateAccountTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
