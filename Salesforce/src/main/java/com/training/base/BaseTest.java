@@ -4,7 +4,9 @@ package com.training.base;
 
 
 import java.io.IOException;
+import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -62,7 +64,7 @@ public class BaseTest
 			System.out.println("Fail:" +objName+" is not displayed");
 
 		}
-		
+
 	} 
 
 	//WAIT FOR ELEMENT TO DISAPPEAR
@@ -129,7 +131,8 @@ public class BaseTest
 
 
 	//CHECK-BOX
-	public static void selectCheckBox(WebElement obj, String objName) {
+	public static void selectCheckBox(WebElement obj, String objName) 
+	{
 
 		if(obj.isDisplayed()) {
 
@@ -147,24 +150,14 @@ public class BaseTest
 		} 
 	}
 
-	//DROP-DOWN
-	public static void selectDropdown(WebElement obj, String objName)
-	{
 
-		if(obj.isDisplayed()) 
-		{
-			obj.click();
-			System.out.println("Pass: "+objName+" is  selected");
-		}
-		else
-		{
-			System.out.println("Fail:"+objName+" is not present");
-		}
+	
 
-	}
+
 	
-	
-	//VARIFY DROP DOWN LIST
+
+
+	//VARIFY DROP DOWN LIST THROUGH ARRAY
 	public static void varifyDropdownList(WebElement obj, String[] ExpectedList)
 	{
 		String[] ActualList = obj.getText().split("\n");
@@ -173,6 +166,28 @@ public class BaseTest
 		{
 			Assert.assertEquals(ActualList[i], ExpectedList[i]);
 			System.out.println(ActualList[i]);
+		}
+	}
+
+
+	//CHECK EXPECTED VALUE IN  DROP-DOWN LIST THROUGHT "LIST"
+	public static void checkExpectedValueDropdownList(WebElement obj,String objName,String ExpectedValue)
+	{
+		Select dropdown = new Select(obj);   
+		List<WebElement> dropdown_list = dropdown.getOptions();   
+
+		for(int i=0; i<dropdown_list.size(); i++)
+		{
+			if(dropdown_list.get(i).getText().equals(ExpectedValue)) 
+			{
+
+				System.out.println("'ExpectedValue' is present in 'objName' list");
+
+			}
+			else
+			{
+				System.out.println("Fail:"+ExpectedValue+" is not present 'objName' list");
+			}
 		}
 	}
 
@@ -245,13 +260,13 @@ public class BaseTest
 
 
 	//SELECT BY TEXT 
-	public static void SelectbyText(WebElement we, String VisibleText)
+	public static void SelectbyText(WebElement obj, String VisibleText)
 	{
-		if(we.isDisplayed())
+		if(obj.isDisplayed())
 		{
-			Select selObj=new Select(we);
+			Select selObj=new Select(obj);
 			selObj.selectByVisibleText(VisibleText);
-			System.out.println("Pass: "+VisibleText+ " is Selected by VisibleText" );
+			System.out.println("Pass: "+VisibleText+ " is Selected from drop down" );
 		} 
 		else
 		{

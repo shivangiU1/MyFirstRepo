@@ -3,13 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.training.test.createAccount.CreateAccountTest">
+      <class name="com.training.test.randomScenarios.RandomScenariosTest">
         <methods>
           <include name="beforeTest"/>
-          <include name="TC11_Createnewview"/>
           <include name="teardown"/>
+          <include name="TestCase37"/>
         </methods>
-      </class> <!-- com.training.test.createAccount.CreateAccountTest -->
+      </class> <!-- com.training.test.randomScenarios.RandomScenariosTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

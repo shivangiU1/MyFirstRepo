@@ -45,7 +45,7 @@ public class CreateAccountTest extends BaseTest
 		// takescreenshot(driver);
 		driver.close();
 	}
-	
+
 	@Test(description = "Create an Account")
 	public void TC10_CreateAccount() throws Exception
 	{
@@ -66,14 +66,12 @@ public class CreateAccountTest extends BaseTest
 			System.out.println("VALIDATION FAIL: HOME PAGE IS NOT LAUNCHED");
 		}
 		waitForElementThenClick(home.AccountsTab,"'Accounts' Tab");
-		Thread.sleep(10000);
-		//driver.findElement(By.xpath("//input[@class='btn btn-brand noThanksBtn']")).click(); //popup 
-		
+		home.PopupClose();
 		waitForElementThenClick(createAccount.NewButton,"'New' button");
 		waitForElement(createAccount.AccountNameTextbox);
 		createAccount.AccountNameTextbox.clear();
 		enterText(createAccount.AccountNameTextbox,"SAVING","ACCOUNT NAME "); 
-		
+
 		selectByVisibleText(createAccount.TypeDropdown,"'Type' Dropdown","Technology Partner");  //dropdown select
 		selectByVisibleText(createAccount.CustomerPriorityDropdown,"'Customer Priority' Dropdown","High");
 		waitForElementThenClick(createAccount.SaveButtonOnEditAccount,"'SAVE' button");
@@ -88,10 +86,10 @@ public class CreateAccountTest extends BaseTest
 			System.out.println("VALIDATION FAIL: NEW ACCOUNT NAME NOT DISPLAYED ");
 		}
 
-		
+
 	}
-	
-	
+
+
 
 	@Test(description = "Create new view")
 	public void TC11_Createnewview() throws Exception
@@ -112,10 +110,10 @@ public class CreateAccountTest extends BaseTest
 		{
 			System.out.println("VALIDATION FAIL: HOME PAGE IS NOT LAUNCHED");
 		}
-		
-		
+
+
 		waitForElementThenClick(home.AccountsTab,"'Accounts' Tab");
-		Thread.sleep(10000);
+		home.PopupClose();
 		waitForElementThenClick(createAccount.CreateNewView,"'Create New View' Link");
 		waitForElement(createAccount.ViewNameTextbox);
 		createAccount.ViewNameTextbox.clear();
@@ -128,7 +126,7 @@ public class CreateAccountTest extends BaseTest
 		waitForElementThenClick(createAccount.AccountViewList,"'Account New List' Dropdown ");
 		Select dropdown_options = new Select(createAccount.AccountViewList);
 		List<WebElement> options = dropdown_options.getOptions();   //name check in dropdown 
-		
+
 		for(int i=0; i<options.size(); i++)
 		{
 			if(options.get(i).getText().equals("Name5")) 
@@ -137,8 +135,8 @@ public class CreateAccountTest extends BaseTest
 			}
 		}
 	}
-	
-	
+
+
 	@Test(description = "Edit view")
 	public void TC12_Editview () throws Exception
 	{
@@ -158,10 +156,10 @@ public class CreateAccountTest extends BaseTest
 		{
 			System.out.println("VALIDATION FAIL: HOME PAGE IS NOT LAUNCHED");
 		}
-		
-		
+
+
 		waitForElementThenClick(home.AccountsTab,"'Accounts' Tab");
-		Thread.sleep(10000);
+		home.PopupClose();
 		waitForElementThenClick(createAccount.Edit,"'EDIT' Tab");
 		waitForElement(createAccount.ViewNameTextbox);
 		createAccount.ViewNameTextbox.clear();
@@ -171,36 +169,124 @@ public class CreateAccountTest extends BaseTest
 		waitForElement(createAccount.Value);
 		createAccount.Value.clear();
 		enterText(createAccount.Value,"a","View Textbox "); 
-		
+
 		Select dropdown_options = new Select(createAccount.AvailableField);   // check in dropdown 
 		List<WebElement> options = dropdown_options.getOptions();   
-		
+
 		for(int i=0; i<options.size(); i++)
 		{
 			if(options.get(i).getText().equals("Last Activity")) 
 			{
-				
+
 				options.get(i).click();
 				createAccount.Add.click();
 				System.out.println("'Last Activity' is moved from 'Available Field'");
 				break;
 			}
 		}
-		
-		Select dropdown_options1 = new Select(createAccount.SelectedField);   // check in dropdown 
+
+		Select dropdown_options1 = new Select(createAccount.SelectedField);  
 		List<WebElement> options1 = dropdown_options1.getOptions();   
-		
+
 		for(int i=0; i<options1.size(); i++)
 		{
 			if(options1.get(i).getText().equals("Last Activity")) 
 			{
-				
-				
+
+
 				System.out.println("'Last Activity' is in 'Selected Field'");
 				break;
 			}
 		}
-		
+
 		waitForElementThenClick(createAccount.SaveButtonOnEditAccount,"'Save' button on edit account");
 	}
+
+
+
+	@Test(description = "Merge accounts")
+	public void TC13_MergeAccounts () throws Exception
+	{
+		String username = common.getApplicationProperty("username");
+		login.enterIntoUsername(username);
+		String password = common.getApplicationProperty("password");
+		login.enterIntoPassword(password);
+		clickObj(login.loginButton,"login button");
+		String actualTitle = driver.getTitle();
+		//Thread.sleep(1000);
+		String expectedTitle = "Home Page ~ Salesforce - Developer Edition";
+		if(actualTitle.equalsIgnoreCase(expectedTitle))
+		{
+			System.out.println("VALIDATION PASS: USER IS ON HOME PAGE");
+		}
+		else
+		{
+			System.out.println("VALIDATION FAIL: HOME PAGE IS NOT LAUNCHED");
+		}
+
+
+		waitForElementThenClick(home.AccountsTab,"'Accounts' Tab");
+		home.PopupClose();
+		waitForElementThenClick(createAccount.MergeAccounts,"'Merge Accounts' in Tools area");
+		enterText(createAccount.FindAccountsTextbox,"SAVING"," Find Accounts Textbox"); 
+		waitForElementThenClick(createAccount.FindAccountsButton,"'Find Accounts' button");
+
+		//uncheck ALL The Checkbox [by-default all the checkboxes is checked]
+
+		for(int i = 0; i<createAccount.AllCheckBoxes.size(); i++)
+		{
+
+			createAccount.AllCheckBoxes.get(i).click();
+		}
+		System.out.println("All the Account Name is unchecked");
+		selectCheckBox(createAccount.FirstAccountNameCheckbox,"First Account Name Checkbox");
+		selectCheckBox(createAccount.SecondAccountNameCheckbox, "Second Account Name Checkbox");
+		waitForElementThenClick(createAccount.NextButtonMergeAccount,"'Next' Button in Merge Account");
+		waitForElementThenClick(createAccount.MergeButton,"'Merge' Button in Merge Account");
+		switchtoAlert(driver);	
+	}
+
+
+	@Test(description = "Create account report ")
+	public void Testcase14  () throws Exception
+	{
+		String username = common.getApplicationProperty("username");
+		login.enterIntoUsername(username);
+		String password = common.getApplicationProperty("password");
+		login.enterIntoPassword(password);
+		clickObj(login.loginButton,"login button");
+		String actualTitle = driver.getTitle();
+		//Thread.sleep(1000);
+		String expectedTitle = "Home Page ~ Salesforce - Developer Edition";
+		if(actualTitle.equalsIgnoreCase(expectedTitle))
+		{
+			System.out.println("VALIDATION PASS: USER IS ON HOME PAGE");
+		}
+		else
+		{
+			System.out.println("VALIDATION FAIL: HOME PAGE IS NOT LAUNCHED");
+		}
+
+
+		waitForElementThenClick(home.AccountsTab,"'Accounts' Tab");
+		home.PopupClose();
+		waitForElementThenClick(createAccount.AccountsWithLastActivity,"'Accounts With Last Activity' link");
+		waitForElementThenClick(createAccount.DateFieldDropDown,"'Date Field' Dropdown");
+		waitForElementThenClick(createAccount.CreatedDateInDateField,"'Created Date' In Date Field");
+		waitForElementThenClick(createAccount.FromDate,"'from' calender");
+		waitForElementThenClick(createAccount.TodayInFromDate,"'today' In from calender");
+		waitForElementThenClick(createAccount.SaveButtonInLastActivity,"'Save' Button In Last Activity");
+		waitForElement(createAccount.ReportNameOnPopUp);
+		createAccount.ReportNameOnPopUp.clear();
+		enterText(createAccount.ReportNameOnPopUp,"ReportName3","REPORT NAME ");  //report name change
+		waitForElement(createAccount.ReportUniqueNameOnPopUp);
+		createAccount.ReportUniqueNameOnPopUp.clear();
+		enterText(createAccount.ReportUniqueNameOnPopUp,"ReportUniqueName1","REPORT UNIQUE NAME "); 
+		waitForElementThenClick(createAccount.SaveAndRunButtonOnPopUp,"'save' button on pop-up");
+		Thread.sleep(10000);
+		
+
+	}
 }
+
+
